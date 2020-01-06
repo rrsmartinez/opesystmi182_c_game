@@ -24,7 +24,8 @@ int kbhit (void) {
     return 1;
 
   return 0;
-}
+} 
+
 
 int colliding(int *snakeArray, int snakeLength) {
   /* checks if snake is colliding with walls */
@@ -55,7 +56,8 @@ void moveSnake(int *snakeArray, int dirX, int dirY, int speed, int snakeLength) 
   int curY = *(snakeArray+1);
   int newX = curX + dirX;
   int newY = curY + dirY;
-
+  int col = 0;
+  int row = 0;
   *(snakeArray) = newX;
   *(snakeArray+1) = newY;
   mvprintw(newY, newX, "O");
@@ -72,7 +74,6 @@ void moveSnake(int *snakeArray, int dirX, int dirY, int speed, int snakeLength) 
 
     mvprintw(newY, newX, "O");
   }
-
   if (dirY != 0) {
     usleep(500000/speed);
   }
@@ -108,8 +109,8 @@ void eatApple(int *snakeArray, int appleX, int appleY,
     *(snakeArray + snakeLen*2) = lastX;
     *(snakeArray + snakeLen*2+1) = lastY;
   }
-
-  mvprintw(0,0,"Iskor: %d", *snakeLength);
+  mvprintw(0,2,"Iskor: %d", *snakeLength);
+  mvprintw(0,20,"Food Eaten: %d", *snakeLength - 4);
 }
 
 int main() {
@@ -125,11 +126,11 @@ int main() {
   int keyPressed = 0;   /* which key user pressed */
   int dirX = 1;        /* direction xy */
   int dirY = 0;
-  int speed = 20;       /* controls speed of the snake */
+  int speed = 10;       /* controls speed of the snake */
   int appleX = 0;       /* current apple xy position */
   int appleY = 0;
   int appleEaten = 1;   /* is apple eaten? */
-  int snakeLength = 20;  /* player snakeLength */
+  int snakeLength = 4;  /* player snakeLength */
 
 
 
@@ -175,8 +176,10 @@ int main() {
   }
   erase();
   mvprintw(MAXHEIGHT/2,MAXWIDTH/4,"Game Over! - Iskor: %d", snakeLength);
-  refresh();
-	getch();			/* Wait for user input */
+  mvprintw(MAXHEIGHT/1.8,MAXWIDTH/4,"Total Food Eaten: %d", snakeLength - 4);
+  mvprintw(MAXHEIGHT/1.2,MAXWIDTH/4,"Press Any Key!");
+  
+  	getch();			/* Wait for user input */
 	endwin();			/* End curses mode		  */
 
 	return 0;
