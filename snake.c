@@ -26,6 +26,11 @@ int kbhit (void) {
   return 0;
 } 
 
+box(win, 0, 0);
+wrefresh(win);
+
+getch();
+
 
 int colliding(int *snakeArray, int snakeLength) {
   /* checks if snake is colliding with walls */
@@ -109,8 +114,7 @@ void eatApple(int *snakeArray, int appleX, int appleY,
     *(snakeArray + snakeLen*2) = lastX;
     *(snakeArray + snakeLen*2+1) = lastY;
   }
-  mvprintw(0,2,"Iskor: %d", *snakeLength);
-  mvprintw(0,20,"Food Eaten: %d", *snakeLength - 4);
+  mvprintw(0,2,"Iskor: %d", *snakeLength - 4);
 }
 
 int main() {
@@ -175,8 +179,7 @@ int main() {
 
   }
   erase();
-  mvprintw(MAXHEIGHT/2,MAXWIDTH/4,"Game Over! - Iskor: %d", snakeLength);
-  mvprintw(MAXHEIGHT/1.8,MAXWIDTH/4,"Total Food Eaten: %d", snakeLength - 4);
+  mvprintw(MAXHEIGHT/1.8,MAXWIDTH/4,"Total Score: %d", snakeLength - 4);
   mvprintw(MAXHEIGHT/1.2,MAXWIDTH/4,"Press Any Key!");
   
   	getch();			/* Wait for user input */
