@@ -92,7 +92,7 @@ void letThereBeApple(int* appleX, int* appleY, int *appleEaten) {
     *appleEaten = 0;
   }
   attron(COLOR_PAIR(2));
-  mvprintw(*appleY, *appleX,"BATA");
+  mvprintw(*appleY, *appleX,"O");
 }
 
 void eatApple(int *snakeArray, int appleX, int appleY,
