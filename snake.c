@@ -26,11 +26,6 @@ int kbhit (void) {
   return 0;
 } 
 
-box(win, 0, 0);
-wrefresh(win);
-
-getch();
-
 
 int colliding(int *snakeArray, int snakeLength) {
   /* checks if snake is colliding with walls */
@@ -65,6 +60,7 @@ void moveSnake(int *snakeArray, int dirX, int dirY, int speed, int snakeLength) 
   int row = 0;
   *(snakeArray) = newX;
   *(snakeArray+1) = newY;
+  attron(COLOR_PAIR(1));
   mvprintw(newY, newX, "O");
 
   for (size_t i = 2; i < snakeLength*2; i += 2) {
@@ -95,8 +91,8 @@ void letThereBeApple(int* appleX, int* appleY, int *appleEaten) {
     *appleY = (rand() % MAXHEIGHT)+1;
     *appleEaten = 0;
   }
-
-  mvprintw(*appleY, *appleX,"D");
+  attron(COLOR_PAIR(2));
+  mvprintw(*appleY, *appleX,"BATA");
 }
 
 void eatApple(int *snakeArray, int appleX, int appleY,
@@ -138,7 +134,10 @@ int main() {
 
 
 
-  initscr();			/* Start curses mode */
+  initscr();
+  start_color();
+  init_pair(1,COLOR_GREEN,COLOR_BLACK);
+  init_pair(2,COLOR_YELLOW,COLOR_BLACK);			/* Start curses mode */
   curs_set(false);
   noecho();
 
@@ -179,6 +178,7 @@ int main() {
 
   }
   erase();
+  attron(COLOR_PAIR(1));
   mvprintw(MAXHEIGHT/1.8,MAXWIDTH/4,"Total Score: %d", snakeLength - 4);
   mvprintw(MAXHEIGHT/1.2,MAXWIDTH/4,"Press Any Key!");
   
